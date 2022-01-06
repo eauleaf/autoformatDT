@@ -8,7 +8,8 @@ fmt_acctg_tbl(
   data_tbl,
   formats_nms = ctgr_acctg_flds(data_tbl),
   tbl_caption = paste0("Data as of ", Sys.Date()),
-  has_totals = T
+  has_totals = T,
+  mk_js_buttons = T
 )
 }
 \arguments{
@@ -19,6 +20,8 @@ fmt_acctg_tbl(
 \item{tbl_caption}{caption to display above table}
 
 \item{has_totals}{whether the acctg table has a totals column}
+
+\item{mk_js_buttons}{render the print and download javascript buttons}
 }
 \value{
 an html table with formatting determined by format_nms

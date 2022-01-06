@@ -4,6 +4,7 @@
 #' @param formats_nms output from function categorize_fields() in format list(percents = c(), dollars = c(), counts = c())
 #' @param tbl_caption caption to display above table
 #' @param has_totals whether the acctg table has a totals column
+#' @param mk_js_buttons render the print and download javascript buttons
 #'
 #' @return an html table with formatting determined by format_nms
 #' @export
@@ -12,8 +13,10 @@
 fmt_acctg_tbl <- function(data_tbl,
                           formats_nms = ctgr_acctg_flds(data_tbl),
                           tbl_caption = paste0('Data as of ', Sys.Date()),
-                          has_totals = T){
+                          has_totals = T,
+                          mk_js_buttons = T){
 
+  if(mk_js_buttons){js_buttons <- 'tB'} else {js_buttons <- ''}
 
   # format DT ---------------------------------------------------------------
   get_odd_rownums <- function(num = nrow(data_tbl)){(1:num)[purrr::rep_along(1:num, c(T,F))]}
@@ -33,7 +36,7 @@ fmt_acctg_tbl <- function(data_tbl,
                   options = list(
                     ordering=F,
                     searchHighlight = TRUE,
-                    dom = 'tB',
+                    dom = js_buttons,
                     pageLength = nrow(data_tbl),
                     buttons = list('print',list(extend = 'collection',
                                                 buttons = c('pdf', 'csv','excel'),
@@ -44,10 +47,10 @@ fmt_acctg_tbl <- function(data_tbl,
                         'text-align':'left', 'background-image':'linear-gradient(180deg, transparent 95%, black 95%'}); ",
                       "}")
                   )
-    ) %>%
+    ) %>% 
     DT::formatStyle(columns = 1, target = 'row',
                 backgroundColor = DT::styleRow(list(odd_rownums, even_rownums), c('#D0D0D0','#C0C0C0'))
-    ) %>%
+    ) %>% 
     DT::formatStyle(colnames(data_tbl), "white-space"="nowrap")
 
 
