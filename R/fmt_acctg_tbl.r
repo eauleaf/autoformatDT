@@ -56,7 +56,7 @@ fmt_acctg_tbl <- function(data_tbl,
 
   if(length(formats_nms$numbers)>0){
     out <- out %>%
-      DT::formatStyle(formats_nms$numbers, color = DT::styleInterval(0, c('darkred', 'black')))
+      DT::formatStyle(formats_nms$numbers, color = DT::styleInterval(-0.0000001, c('darkred', 'black')))
   }
 
   if(length(formats_nms$rates)>0){
